@@ -1,0 +1,32 @@
+.root {
+  position: relative;
+}
+.input {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 12px 20px;
+  padding-left: 35px;
+  width: 300px;
+  border-radius: 10px;
+  font-size: 16px;
+}
+.searchIcon {
+  width: 20px;
+  height: 24px;
+  opacity: 0.6;
+  position: absolute;
+  bottom: 12px;
+  left: 10px;
+  cursor: pointer;
+}
+.clearIcon {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 10px;
+  bottom: 15px;
+  opacity: 0.8;
+  cursor: pointer;
+  :hover {
+    opacity: 0.3;
+  }
+}
