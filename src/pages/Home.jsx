@@ -1,4 +1,5 @@
 import React from 'react';
+import { SearchContext } from '../App';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
@@ -6,7 +7,7 @@ import Pizzablock from '../components/Pizzablock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 
-const Home = ({ searchValue }) => {
+const Home = () => {
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -15,6 +16,7 @@ const Home = ({ searchValue }) => {
     name: 'Популярности',
     sortProperty: 'rating',
   });
+  const { searchValue } = React.useContext(SearchContext);
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -49,7 +51,7 @@ const Home = ({ searchValue }) => {
           }}
         />
       </div>
-      <h2 className="content__title">Все пиццы</h2>
+      <h2 className="content__title">Все пиццыы</h2>
       <div className="content__items">{isLoading ? skeleton : pizzaItems}</div>
       <Pagination onChangePage={(number) => setCurrentPage(number)} />
     </div>
