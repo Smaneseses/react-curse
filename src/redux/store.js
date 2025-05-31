@@ -1,8 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import calculateReducer from './slices/calculateSlice';
+import filter from './slices/filterSlice';
 
 export const store = configureStore({
-  reducer: {
-    calculate: calculateReducer,
-  },
+  reducer: { filter },
 });
