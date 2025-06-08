@@ -54,7 +54,7 @@ const Home = () => {
           }}
         />
       </div>
-      <h2 className="content__title">Все пиццыы</h2>
+      <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeleton : pizzaItems}</div>
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
