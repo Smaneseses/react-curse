@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
-import Pizzablock from '../components/Pizzablock';
+import Pizzablock from '../components/PizzaBlock/index';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 
@@ -60,13 +60,10 @@ const Home = () => {
   React.useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
-      const sort = {
-        sortProperty: params.sortProperty,
-      };
+
       dispatch(
         setFilters({
           ...params,
-          sort,
         }),
       );
     }
@@ -84,7 +81,7 @@ const Home = () => {
   }, [categoryId, sortType, searchValue, currentPage]);
 
   const skeleton = [...Array(4)].map((_, i) => <Skeleton key={i} />);
-  const pizzaItems = items.map((obj) => <Pizzablock key={obj.id} {...obj} />);
+  const pizzaItems = items.map((obj, id) => <Pizzablock key={id} {...obj} />);
   return (
     <div className="container">
       <div className="content__top">

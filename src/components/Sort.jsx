@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSort } from '../redux/slices/filterSlice';
 
@@ -6,6 +6,7 @@ function Sort() {
   const sortType = useSelector((state) => state.filter.sort);
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
+  const sortRef = React.useRef();
   const list = [
     { name: 'популярности', sortProperty: 'rating' },
     { name: 'цене', sortProperty: 'price' },
@@ -17,8 +18,23 @@ function Sort() {
     setOpen(false);
   };
 
+  // firefox нормально не работает с кодом из ролика
+  // убирает выпадающий список при клике на любую другую область экрана
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!sortRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.body.addEventListener('click', handleClickOutside);
+
+    return () => document.body.removeEventListener('click', handleClickOutside);
+    // функции(возможно это работает только с обратчиками) сохраняются при ререндере а return служит для удаление прошлых функций
+  }, []);
+
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
           width="10"

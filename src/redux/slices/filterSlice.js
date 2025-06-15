@@ -23,9 +23,18 @@ export const filterSlice = createSlice({
       state.currentPage = action.payload;
     },
     setFilters(state, action) {
-      state.categoryId = Number(action.payload.categoryId);
-      state.currentPage = Number(action.payload.currentPage);
-      state.sortProperty = action.payload.sortProperty;
+      if (Object.keys(action.payload).length) {
+        state.categoryId = Number(action.payload.categoryId);
+        state.currentPage = Number(action.payload.currentPage);
+        state.sortProperty = action.payload.sortProperty;
+      } else {
+        state.currentPage = 1;
+        state.categoryId = 0;
+        state.sort = {
+          name: 'Популярности',
+          sortProperty: 'rating',
+        };
+      }
     },
   },
 });
