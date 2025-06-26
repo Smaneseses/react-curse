@@ -6,7 +6,7 @@ const initialState = {
 };
 
 export const cartSlice = createSlice({
-  name: 'filter',
+  name: 'cart',
   initialState,
   reducers: {
     // addItem(state, action) {
@@ -54,6 +54,9 @@ export const cartSlice = createSlice({
     },
   },
 });
+
+export const selectCart = (state) => state.cart;
+export const selectCartItemById = (id) => (state) => state.cart.items.find((obj) => obj.id === id);
 
 export const { addItem, removeItem, clearItems, minusItem } = cartSlice.actions;
 
