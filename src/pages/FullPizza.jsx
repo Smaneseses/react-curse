@@ -12,7 +12,7 @@ function FullPizza() {
         ea obcaecati! Ab aliquam eligendi repellat nisi natus, hic nemo numquam architecto eum,
         porro dolore cumque quod?
       </p>
-      <h4>250</h4>
+      <h4>2501</h4>
     </div>
   );
 }
