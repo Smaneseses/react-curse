@@ -8,7 +8,7 @@ import {
   setFilters,
 } from '../redux/slices/filterSlice';
 import { setItems, fetchPizzas, slectPizzaData } from '../redux/slices/pizzaSlice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
@@ -79,7 +79,11 @@ const Home = () => {
   }, [categoryId, sortType, currentPage, searchValue]);
 
   const skeleton = [...Array(4)].map((_, i) => <Skeleton key={i} />);
-  const pizzaItems = items.map((obj, id) => <Pizzablock key={id} {...obj} />);
+  const pizzaItems = items.map((obj) => (
+    <Link to={`/pizza/${obj.id}`}>
+      <Pizzablock key={obj.id} {...obj} />
+    </Link>
+  ));
   return (
     <div className="container">
       <div className="content__top">
