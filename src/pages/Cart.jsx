@@ -11,6 +11,7 @@ function Cart() {
 
   const totalCount = items.reduce((sum, item) => sum + item.count, 0);
 
+  console.log(totalCount, totalPrice);
   const onClickClear = () => {
     if (window.confirm('123')) {
       dispatch(clearItems());
