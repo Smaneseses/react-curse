@@ -2,18 +2,23 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectSort, setSort } from '../redux/slices/filterSlice';
 
+type SortItem = {
+  name: string;
+  sortProperty: string;
+};
+
 function Sort() {
   const sortType = useSelector(selectSort);
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
-  const sortRef = React.useRef();
+  const sortRef = React.useRef<HTMLDivElement>(null);
   const list = [
     { name: 'популярности', sortProperty: 'rating' },
     { name: 'цене', sortProperty: 'price' },
     { name: 'алфавиту', sortProperty: 'title' },
   ];
 
-  const onClickListItem = (obj) => {
+  const onClickListItem = (obj: SortItem) => {
     dispatch(setSort(obj));
     setOpen(false);
   };
@@ -21,8 +26,8 @@ function Sort() {
   // firefox нормально не работает с кодом из ролика
   // убирает выпадающий список при клике на любую другую область экрана
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (!sortRef.current.contains(event.target)) {
+    const handleClickOutside = (event: any) => {
+      if (!event.composedPath().includes(sortRef.current)) {
         setOpen(false);
       }
     };

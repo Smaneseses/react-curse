@@ -24,7 +24,7 @@ const Search = () => {
   const onClickClear = () => {
     dispatch(setSearchValue(''));
     updateSearchValue('');
-    inputRef.current.focus();
+    inputRef.current?.focus();
   };
   return (
     <div className={styles.root}>

@@ -16,7 +16,7 @@ import Pizzablock from '../components/PizzaBlock/index';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 
-const Home = () => {
+const Home: React.FC = () => {
   const dispatch = useDispatch();
   const { categoryId, sortType, currentPage, searchValue } = useSelector(selectFilter);
   const { items, status } = useSelector(slectPizzaData);
@@ -29,6 +29,7 @@ const Home = () => {
     const search = searchValue ? `&search=${searchValue}` : '';
 
     dispatch(
+      // @ts-ignore
       fetchPizzas({
         category,
         search,
@@ -38,11 +39,11 @@ const Home = () => {
     );
   };
 
-  const onClickCategory = (id) => {
+  const onClickCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
+  const onChangePage = (page: number) => {
+    dispatch(setCurrentPage(page));
   };
 
   React.useEffect(() => {
@@ -79,7 +80,7 @@ const Home = () => {
   }, [categoryId, sortType, currentPage, searchValue]);
 
   const skeleton = [...Array(4)].map((_, i) => <Skeleton key={i} />);
-  const pizzaItems = items.map((obj) => (
+  const pizzaItems = items.map((obj: any) => (
     <Link to={`/pizza/${obj.id}`}>
       <Pizzablock key={obj.id} {...obj} />
     </Link>
@@ -88,12 +89,7 @@ const Home = () => {
     <div className="container">
       <div className="content__top">
         <Categories value={categoryId} onChangeCategory={onClickCategory} />
-        <Sort
-          value={sortType}
-          onChangeSort={(value) => {
-            sortType(value);
-          }}
-        />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === 'error' ? (
