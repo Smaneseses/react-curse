@@ -7,6 +7,7 @@ type SortItem = {
   sortProperty: string;
 };
 
+type PopUpClick = MouseEvent;
 function Sort() {
   const sortType = useSelector(selectSort);
   const dispatch = useDispatch();
@@ -26,8 +27,8 @@ function Sort() {
   // firefox нормально не работает с кодом из ролика
   // убирает выпадающий список при клике на любую другую область экрана
   useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (!event.composedPath().includes(sortRef.current)) {
+    const handleClickOutside = (event: PopUpClick) => {
+      if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
         setOpen(false);
       }
     };
