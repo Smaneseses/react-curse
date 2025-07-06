@@ -1,6 +1,6 @@
 import React from 'react';
 import qs from 'qs';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   selectFilter,
   setCategoryId,
@@ -15,10 +15,11 @@ import Sort from '../components/Sort';
 import Pizzablock from '../components/PizzaBlock/index';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
+import { useAppDispatch } from '../redux/store';
 
 const Home: React.FC = () => {
-  const dispatch = useDispatch();
-  const { categoryId, sortType, currentPage, searchValue } = useSelector(selectFilter);
+  const dispatch = useAppDispatch();
+  const { categoryId, sort: sortType, currentPage, searchValue } = useSelector(selectFilter);
   const { items, status } = useSelector(slectPizzaData);
   const navigate = useNavigate();
   const isSearch = React.useRef(false);
@@ -49,14 +50,14 @@ const Home: React.FC = () => {
   React.useEffect(() => {
     if (isMounted.current) {
       const queryString = qs.stringify({
-        sortProperty: sortType.sortProperty,
+        sort: sortType,
         categoryId,
         currentPage,
       });
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  }, [categoryId, sortType, currentPage]);
+  }, [categoryId, sortType.sortProperty, currentPage]);
 
   React.useEffect(() => {
     if (window.location.search) {
@@ -65,6 +66,10 @@ const Home: React.FC = () => {
       dispatch(
         setFilters({
           ...params,
+          sort: sortType,
+          searchValue: '',
+          categoryId: 0,
+          currentPage: 1,
         }),
       );
     }
@@ -77,14 +82,10 @@ const Home: React.FC = () => {
     getPizzas();
 
     isSearch.current = false;
-  }, [categoryId, sortType, currentPage, searchValue]);
+  }, [categoryId, sortType.sortProperty, currentPage, searchValue]);
 
   const skeleton = [...Array(4)].map((_, i) => <Skeleton key={i} />);
-  const pizzaItems = items.map((obj: any) => (
-    <Link to={`/pizza/${obj.id}`}>
-      <Pizzablock key={obj.id} {...obj} />
-    </Link>
-  ));
+  const pizzaItems = items.map((obj: any) => <Pizzablock key={obj.id} {...obj} />);
   return (
     <div className="container">
       <div className="content__top">

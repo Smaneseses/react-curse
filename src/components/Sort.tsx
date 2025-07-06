@@ -13,7 +13,7 @@ function Sort() {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const sortRef = React.useRef<HTMLDivElement>(null);
-  const list = [
+  const list: SortItem[] = [
     { name: 'популярности', sortProperty: 'rating' },
     { name: 'цене', sortProperty: 'price' },
     { name: 'алфавиту', sortProperty: 'title' },
@@ -70,7 +70,7 @@ function Sort() {
                 onClick={() => {
                   onClickListItem(obj);
                 }}
-                className={sortType === obj.sortProperty ? 'active' : ''}>
+                className={sortType.sortProperty === obj.sortProperty ? 'active' : ''}>
                 {obj.name}
               </li>
             ))}
