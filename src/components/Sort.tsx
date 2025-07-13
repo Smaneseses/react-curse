@@ -6,9 +6,12 @@ type SortItem = {
   name: string;
   sortProperty: string;
 };
+type SortProps = {
+  value: SortItem;
+}
 
 type PopUpClick = MouseEvent;
-function Sort() {
+const Sort: React.FC<SortProps> = React.memo(({value}) => {
   const sortType = useSelector(selectSort);
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
@@ -58,7 +61,7 @@ function Sort() {
           onClick={() => {
             setOpen(!open);
           }}>
-          {sortType.name}
+          {value.name}
         </span>
       </div>
       {open && (
@@ -70,7 +73,7 @@ function Sort() {
                 onClick={() => {
                   onClickListItem(obj);
                 }}
-                className={sortType.sortProperty === obj.sortProperty ? 'active' : ''}>
+                className={value.sortProperty === obj.sortProperty ? 'active' : ''}>
                 {obj.name}
               </li>
             ))}
@@ -79,6 +82,6 @@ function Sort() {
       )}
     </div>
   );
-}
+})
 
 export default Sort;

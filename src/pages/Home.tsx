@@ -40,9 +40,9 @@ const Home: React.FC = () => {
     );
   };
 
-  const onClickCategory = (id: number) => {
+  const onChangeCategory  = React.useCallback((id: number) => {
     dispatch(setCategoryId(id));
-  };
+  }, [])
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
   };
@@ -89,8 +89,8 @@ const Home: React.FC = () => {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories value={categoryId} onChangeCategory={onClickCategory} />
-        <Sort />
+        <Categories value={categoryId} onChangeCategory={onChangeCategory} />
+        <Sort value={sortType} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === 'error' ? (
