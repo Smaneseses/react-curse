@@ -1,9 +1,9 @@
 import React from 'react';
 import { debounce } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSearchValue } from '../../redux/slices/filterSlice';
 
 import styles from './Search.module.scss';
+import { setSearchValue } from '../../redux/slices/filter/slice';
 
 const Search = () => {
   const dispatch = useDispatch();
